@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Busca Minas - Bogarth Sánchez</title>
+    <style>
+        body { margin: 0; background: #050505; color: white; font-family: Arial; overflow: hidden; cursor: none; }
+        #escoltado {
+            position: fixed; width: 25px; height: 25px; background: #00f2ff; border-radius: 50%;
+            box-shadow: 0 0 20px #00f2ff; pointer-events: none; z-index: 1000; transform: translate(-50%, -50%);
+        }
+        .mina {
+            position: absolute; width: 60px; height: 60px; background: #222; border: 2px solid red;
+            display: flex; justify-content: center; align-items: center; font-size: 30px; border-radius: 10px;
+        }
+        #meta {
+            position: fixed; bottom: 50px; right: 50px; width: 150px; height: 100px;
+            border: 3px dashed #39ff14; color: #39ff14; display: flex; align-items: center;
+            justify-content: center; text-align: center; cursor: pointer; font-weight: bold;
+        }
+        footer { position: fixed; bottom: 10px; width: 100%; text-align: center; color: #555; }
+    </style>
+</head>
+<body>
+    <div id="escoltado"></div>
+    <div class="mina" style="top: 20%; left: 20%;">💣</div>
+    <div class="mina" style="top: 50%; left: 50%;">💣</div>
+    <div class="mina" style="top: 70%; left: 20%;">💣</div>
+    <div id="meta" onclick="window.location.href='victoria.html'">ZONA SEGURA<br>(CLIC AQUÍ)</div>
+    <footer>OPERADOR: <b style="color:#00f2ff">Bogarth Sánchez</b></footer>
+
+    <script>
+        const escoltado = document.getElementById('escoltado');
+        const minas = document.querySelectorAll('.mina');
+
+        document.addEventListener('mousemove', (e) => {
+            escoltado.style.left = e.clientX + 'px';
+            escoltado.style.top = e.clientY + 'px';
+            
+            minas.forEach(mina => {
+                const rect = mina.getBoundingClientRect();
+                if (e.clientX > rect.left && e.clientX < rect.right && e.clientY > rect.top && e.clientY < rect.bottom) {
+                    window.location.href = "game over.html";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
